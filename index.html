@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>London College Nansana | Future-Ready Education Hub</title>
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- AOS Scroll Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #f8fafc 0%, #eef2f6 100%);
+        }
+
+        /* ========== SPLASH SCREEN - 10 SEC CELEBRATION ========== */
+        .splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 20%, #0a2f44, #02121c);
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 1s ease-out;
+            overflow: hidden;
+        }
+
+        .splash-content {
+            text-align: center;
+            animation: gentleFloat 2s ease-in-out infinite;
+        }
+
+        .kid-celebration {
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .celeb-emoji {
+            font-size: 100px;
+            filter: drop-shadow(0 15px 25px rgba(0,0,0,0.4));
+            animation: bounceJoy 1.2s infinite alternate;
+        }
+
+        .celeb-emoji:nth-child(2) { animation-delay: 0.2s; }
+        .celeb-emoji:nth-child(3) { animation-delay: 0.4s; }
+
+        .rotating-welcome {
+            font-size: 2.4rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #FFE6B0, #FFB347, #FF8C42);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: rotateTextAdv 2.5s ease-in-out infinite, textGlow 1.8s infinite;
+            letter-spacing: 4px;
+            padding: 20px 30px;
+            text-align: center;
+        }
+
+        .splash-timer {
+            margin-top: 40px;
+            background: rgba(0,0,0,0.55);
+            backdrop-filter: blur(10px);
+            padding: 12px 28px;
+            border-radius: 50px;
+            color: #ffd966;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        @keyframes gentleFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+        }
+
+        @keyframes bounceJoy {
+            0% { transform: translateY(0) scale(1); }
+            100% { transform: translateY(-25px) scale(1.08); }
+        }
+
+        @keyframes rotateTextAdv {
+            0% { transform: rotate(-1deg) scale(1); letter-spacing: 3px; }
+            50% { transform: rotate(1deg) scale(1.03); letter-spacing: 8px; }
+            100% { transform: rotate(-1deg) scale(1); letter-spacing: 3px; }
+        }
+
+        @keyframes textGlow {
+            0%, 100% { text-shadow: 0 0 15px rgba(255,180,71,0.4); }
+            50% { text-shadow: 0 0 35px rgba(255,140,0,0.8); }
+        }
+
+        /* ========== DASHBOARD STYLES (No background animation) ========== */
+        .dashboard {
+            display: none;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f8fafc 0%, #eef2f6 100%);
+        }
+
+        /* Modern Navbar */
+        .navbar {
+            background: rgba(10, 47, 68, 0.95);
+            backdrop-filter: blur(15px);
+            padding: 1rem 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255,180,71,0.3);
+        }
+
+        .logo h1 {
+            font-size: 1.7rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff, #ffb347);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #ffb347;
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(120deg, #0a2f44, #1b6b87);
+            padding: 3rem 2rem;
+            text-align: center;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Grid System */
+        .grid-2col {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .glass-card {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(8px);
+            border-radius: 32px;
+            padding: 1.8rem;
+            box-shadow: 0 20px 35px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,180,71,0.2);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 40px rgba(0,0,0,0.12);
+        }
+
+        .card-title {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #0a2f44;
+            margin-bottom: 1.2rem;
+            border-left: 5px solid #ffb347;
+            padding-left: 15px;
+        }
+
+        /* Facebook Links */
+        .fb-link {
+            background: #f0f2f5;
+            border-radius: 20px;
+            padding: 12px;
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: #050505;
+            transition: 0.2s;
+        }
+
+        .fb-link:hover {
+            background: #e4e6e9;
+            transform: translateX(8px);
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px 18px;
+            margin: 10px 0;
+            border: 2px solid #e2e8f0;
+            border-radius: 28px;
+            transition: 0.2s;
+            font-size: 0.95rem;
+        }
+
+        input:focus, select:focus {
+            border-color: #ffb347;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255,180,71,0.2);
+        }
+
+        button {
+            background: linear-gradient(135deg, #ffb347, #ff8c00);
+            border: none;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            color: white;
+            font-size: 1rem;
+        }
+
+        button:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 20px rgba(255,140,0,0.3);
+        }
+
+        /* Video Grid */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.2rem;
+            margin-top: 1rem;
+        }
+
+        .video-item {
+            background: #f1f5f9;
+            border-radius: 24px;
+            padding: 12px;
+            transition: 0.2s;
+        }
+
+        .video-item iframe {
+            width: 100%;
+            border-radius: 18px;
+            height: 180px;
+        }
+
+        .skill-badge {
+            background: linear-gradient(135deg, #0a2f44, #1b6b87);
+            color: white;
+            padding: 8px 18px;
+            border-radius: 40px;
+            display: inline-block;
+            margin: 6px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .search-result-card {
+            background: linear-gradient(135deg, #fef9e6, #fff);
+            border-radius: 20px;
+            padding: 1rem;
+            margin-top: 1rem;
+            border-left: 5px solid #ffb347;
+        }
+
+        footer {
+            background: #0a2f44;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .developer-tag {
+            background: rgba(0,0,0,0.7);
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .navbar { flex-direction: column; gap: 15px; }
+            .rotating-welcome { font-size: 1.3rem; letter-spacing: 2px; }
+            .hero h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- SPLASH SCREEN with 10 seconds celebration -->
+<div class="splash-screen" id="splashScreen">
+    <div class="splash-content">
+        <div class="kid-celebration">
+            <div class="celeb-emoji">🧑‍🎓🎉</div>
+            <div class="celeb-emoji">🏆📚✨</div>
+            <div class="celeb-emoji">🚀💯⭐</div>
+        </div>
+        <div class="rotating-welcome" id="rotatingText">WELCOME TO LONDON COLLEGE NANSANA</div>
+        <div class="splash-timer">
+            <i class="fas fa-hourglass-half"></i> Celebrating Success <span id="countdownTimer">10</span> seconds
+        </div>
+        <div style="margin-top: 20px;">
+            <i class="fas fa-circle-notch fa-spin fa-2x" style="color: #ffb347;"></i>
+        </div>
+    </div>
+</div>
+
+<!-- MAIN DASHBOARD -->
+<div class="dashboard" id="dashboard">
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="logo">
+            <h1><i class="fas fa-graduation-cap"></i> LONDON COLLEGE <span style="color:#ffb347;">NANSANA</span></h1>
+        </div>
+        <div class="nav-links">
+            <a href="#home"><i class="fas fa-home"></i> Home</a>
+            <a href="#register"><i class="fas fa-user-plus"></i> Register</a>
+            <a href="#search"><i class="fas fa-search"></i> Student Info</a>
+            <a href="#academics"><i class="fas fa-flask"></i> Smart Learning</a>
+            <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
+        </div>
+    </div>
+
+    <!-- Hero -->
+    <div class="hero" id="home">
+        <h1 data-aos="fade-up">🎓 Excellence. Innovation. Global Mindset.</h1>
+        <p data-aos="fade-up" data-aos-delay="100">Empowering students with 21st-century skills & real-world knowledge</p>
+        <div data-aos="fade-up" data-aos-delay="200" style="margin-top: 20px;">
+            <span class="skill-badge"><i class="fas fa-microchip"></i> AI & Robotics</span>
+            <span class="skill-badge"><i class="fas fa-flask"></i> Advanced Science Labs</span>
+            <span class="skill-badge"><i class="fas fa-code"></i> Full-Stack Dev</span>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- First Row: Facebook & Registration & Search -->
+        <div class="grid-2col">
+            <!-- Facebook Section -->
+            <div class="glass-card">
+                <div class="card-title"><i class="fab fa-facebook"></i> Our Social Hub</div>
+                <a href="https://www.facebook.com/londoncollege.nansana" target="_blank" class="fb-link">
+                    <i class="fab fa-facebook-square fa-2x" style="color:#1877f2;"></i>
+                    <div><strong>London College Nansana Official</strong><br>Follow for updates & news</div>
+                </a>
+                <div><strong>📸 School Memories & Events</strong></div>
+                <a href="https://www.facebook.com/share/1C6BDuQpRh/" target="_blank" class="fb-link"><i class="fas fa-camera"></i> Graduation 2025 Gallery</a>
+                <a href="https://www.facebook.com/share/1Dwpb45rMP/" target="_blank" class="fb-link"><i class="fas fa-futbol"></i> Sports Championship Moments</a>
+                <a href="https://www.facebook.com/share/1CKMGuA3q7/" target="_blank" class="fb-link"><i class="fas fa-laptop-code"></i> ICT & Innovation Expo</a>
+            </div>
+
+            <!-- Registration Form -->
+            <div class="glass-card" id="register">
+                <div class="card-title"><i class="fas fa-edit"></i> New Student Enrollment</div>
+                <form id="registerForm">
+                    <input type="text" id="fullName" placeholder="Full Name" required>
+                    <input type="text" id="indexNum" placeholder="Index Number (e.g., LCN/2025/001)" required>
+                    <input type="email" id="emailReg" placeholder="Email Address">
+                    <select id="classLevel">
+                        <option>Senior 1</option><option>Senior 2</option><option>Senior 3</option>
+                        <option>Senior 4</option><option>Senior 5</option><option>Senior 6</option>
+                    </select>
+                    <input type="text" id="phoneReg" placeholder="Parent/Guardian Contact">
+                    <button type="submit"><i class="fas fa-save"></i> Register Now</button>
+                </form>
+                <div id="regMessage" style="margin-top: 12px; font-weight: 500;"></div>
+            </div>
+
+            <!-- Student Search -->
+            <div class="glass-card" id="search">
+                <div class="card-title"><i class="fas fa-search"></i> Find Student Records</div>
+                <input type="text" id="searchInput" placeholder="Search by Name or Index Number">
+                <button id="searchBtn"><i class="fas fa-search-location"></i> Search</button>
+                <div id="searchResults" style="margin-top: 15px;"></div>
+                <p style="font-size: 12px; color: #666; margin-top: 10px;"><i class="fas fa-database"></i> Demo: Try "James", "Aisha", or "LCN/2024/012"</p>
+            </div>
+        </div>
+
+        <!-- YouTube Video Hub: Academics + Skilling + Daily Life Concepts -->
+        <div class="glass-card" id="academics">
+            <div class="card-title"><i class="fab fa-youtube"></i> Smart Learning Hub: Science, Skilling & Life Concepts</div>
+            <div class="video-grid">
+                <div class="video-item"><iframe src="https://www.youtube.com/embed/RCrOIJiyV1A" frameborder="0" allowfullscreen></iframe><p><strong>🎓 Success Story</strong></p></div>
+                <div class="video-item"><iframe src="https://www.youtube.com/embed/ugiCqeIqyyY" frameborder="0" allowfullscreen></iframe><p><strong>🏫 Campus Life</strong></p></div>
+                <div class="video-item"><iframe src="https://www.youtube.com/embed/h6fcK_fRYaI" frameborder="0" allowfullscreen></iframe><p><strong>🧪 Chemistry Practical: Titration</strong></p></div>
+                <div class="video-item"><iframe src="https://www.youtube.com/embed/JA5iBq7nR-c" frameborder="0" allowfullscreen></iframe><p><strong>⚡ Physics: Electricity Experiments</strong></p></div>
+                <div class="video-item"><iframe src="https://www.youtube.com/embed/8jLOx1hD3_o" frameborder="0" allowfullscreen></iframe><p><strong>🔬 Biology: Microscope World</strong></p></div>
+                <div class="video-item"><iframe src="https://www.youtube.com/embed/3JZ_D3ELwOQ" frameborder="0" allowfullscreen></iframe><p><strong>💻 ICT: Python Programming</strong></p></div>
+                <div class="video-item"><iframe src="https://www.youtube.com/embed/L8ypX6z0aBk" frameborder="0" allowfullscreen></iframe><p><strong>🛠️ Skilling: Carpentry & Design</strong></p></div>
+                <div class="video-item"><iframe src="https://www.youtube.com/embed/MmB9b5njVbA" frameborder="0" allowfullscreen></iframe><p><strong>🌱 Daily Life: Hydroponics Farming</strong></p></div>
+                <div class="video-item"><iframe src="https://www.youtube.com/embed/7r0gXJWnopc" frameborder="0" allowfullscreen></iframe><p><strong>💡 Critical Thinking: Real World Math</strong></p></div>
+                <div class="video-item"><iframe src="https://www.youtube.com/embed/qVF0pF7O09M" frameborder="0" allowfullscreen></iframe><p><strong>🤖 AI in Everyday Life</strong></p></div>
+            </div>
+        </div>
+
+        <!-- Skilling Programs & Tech Innovations + Contact -->
+        <div class="grid-2col">
+            <div class="glass-card">
+                <div class="card-title"><i class="fas fa-rocket"></i> Skilling & Innovation Programs</div>
+                <div>
+                    <span class="skill-badge"><i class="fab fa-python"></i> Python & AI</span>
+                    <span class="skill-badge"><i class="fas fa-robot"></i> Robotics Club</span>
+                    <span class="skill-badge"><i class="fas fa-palette"></i> Digital Arts</span>
+                    <span class="skill-badge"><i class="fas fa-chart-line"></i> Data Science</span>
+                    <span class="skill-badge"><i class="fas fa-car"></i> Auto Mechanics</span>
+                    <span class="skill-badge"><i class="fas fa-seedling"></i> Smart Agriculture</span>
+                    <span class="skill-badge"><i class="fas fa-vr-cardboard"></i> AR/VR Workshop</span>
+                </div>
+                <p style="margin-top: 20px;"><i class="fas fa-certificate"></i> <strong>Partners:</strong> Microsoft, Google CS First, UNEB Accredited</p>
+            </div>
+
+            <div class="glass-card" id="contact">
+                <div class="card-title"><i class="fas fa-headset"></i> Contact & Location</div>
+                <p><i class="fas fa-map-marker-alt"></i> Nansana Municipality, Kampala - Uganda</p>
+                <p><i class="fas fa-phone-alt"></i> +256 758 123456 | +256 702 987654</p>
+                <p><i class="fas fa-envelope"></i> info@londoncollegenansana.ac.ug</p>
+                <p><i class="fab fa-whatsapp"></i> WhatsApp Admissions: +256 701 234567</p>
+                <div style="margin-top: 15px;">
+                    <a href="https://www.facebook.com/londoncollege.nansana" target="_blank" style="font-size: 28px; margin-right: 15px; color:#1877f2;"><i class="fab fa-facebook"></i></a>
+                    <a href="#" style="font-size: 28px; margin-right: 15px; color:#1DA1F2;"><i class="fab fa-twitter"></i></a>
+                    <a href="#" style="font-size: 28px; color:#E4405F;"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- School Stats & Info -->
+        <div class="glass-card">
+            <div class="card-title"><i class="fas fa-chart-simple"></i> Achievements & Milestones</div>
+            <div style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 20px;">
+                <div><i class="fas fa-trophy fa-2x" style="color:#ffb347;"></i><br><strong>96%</strong><br>Pass Rate 2024</div>
+                <div><i class="fas fa-users fa-2x" style="color:#ffb347;"></i><br><strong>1500+</strong><br>Students</div>
+                <div><i class="fas fa-chalkboard-user fa-2x" style="color:#ffb347;"></i><br><strong>75+</strong><br>Expert Teachers</div>
+                <div><i class="fas fa-globe fa-2x" style="color:#ffb347;"></i><br><strong>12+</strong><br>Global Partners</div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 London College Nansana — Excellence, Innovation, Integrity</p>
+        <p>Accredited by the Uganda National Examinations Board (UNEB) | Ministry of Education</p>
+        <div class="developer-tag">
+            <i class="fas fa-code"></i> Developed with 💻 by Simpson 💭 | Tech Architect
+        </div>
+    </footer>
+</div>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init({ duration: 800, once: true });
+
+    // ========== SPLASH SCREEN 10 SECONDS WITH ROTATING TEXT ==========
+    const splashDiv = document.getElementById('splashScreen');
+    const dashboardDiv = document.getElementById('dashboard');
+    const rotatingSpan = document.getElementById('rotatingText');
+    const countdownSpan = document.getElementById('countdownTimer');
+
+    const rotatingMessages = [
+        "WELCOME TO LONDON COLLEGE NANSANA",
+        "🏆 EXCELLENCE IN EVERY STEP 🏆",
+        "🎓 FUTURE LEADERS ACADEMY 🎓",
+        "💡 INNOVATION & TECHNOLOGY HUB 💡",
+        "🌍 GLOBAL CITIZENS MAKERS 🌍"
+    ];
+    let msgIdx = 0;
+    const rotateMsgInterval = setInterval(() => {
+        msgIdx = (msgIdx + 1) % rotatingMessages.length;
+        rotatingSpan.textContent = rotatingMessages[msgIdx];
+    }, 2500);
+
+    let timeRemaining = 10; // 10 seconds as requested
+    const timerInterval = setInterval(() => {
+        timeRemaining--;
+        countdownSpan.textContent = timeRemaining;
+        if (timeRemaining <= 0) {
+            clearInterval(timerInterval);
+            clearInterval(rotateMsgInterval);
+            splashDiv.style.opacity = '0';
+            setTimeout(() => {
+                splashDiv.style.display = 'none';
+                dashboardDiv.style.display = 'block';
+                setTimeout(() => { dashboardDiv.style.opacity = '1'; }, 50);
+            }, 900);
+        }
+    }, 1000);
+
+    // ========== STUDENT DATABASE (MOCK) ==========
+    let studentsDB = [
+        { fullName: "James Mukasa", indexNumber: "LCN/2024/012", email: "james@lcns.ug", classLevel: "Senior 4", phone: "0756123456", regDate: "2024-02-10" },
+        { fullName: "Aisha Nabukenya", indexNumber: "LCN/2024/045", email: "aisha@lcns.ug", classLevel: "Senior 5", phone: "0778234567", regDate: "2024-01-22" },
+        { fullName: "Michael Ochieng", indexNumber: "LCN/2025/001", email: "michael@lcns.ug", classLevel: "Senior 3", phone: "0700112233", regDate: "2025-01-15" },
+        { fullName: "Patricia Nambi", indexNumber: "LCN/2023/089", email: "patricia@alumni.lcns.ug", classLevel: "Senior 6", phone: "0789456123", regDate: "2023-08-20" },
+        { fullName: "Emmanuel Ssemwanga", indexNumber: "LCN/2025/019", email: "emmanuel@lcns.ug", classLevel: "Senior 2", phone: "0754987654", regDate: "2025-02-01" },
+        { fullName: "Grace Atim", indexNumber: "LCN/2025/045", email: "grace@lcns.ug", classLevel: "Senior 1", phone: "0788123456", regDate: "2025-03-10" }
+    ];
+
+    // Registration Handler
+    const regForm = document.getElementById('registerForm');
+    const regMsgDiv = document.getElementById('regMessage');
+
+    regForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = document.getElementById('fullName').value.trim();
+        const idx = document.getElementById('indexNum').value.trim();
+        const email = document.getElementById('emailReg').value.trim();
+        const cls = document.getElementById('classLevel').value;
+        const phone = document.getElementById('phoneReg').value.trim();
+
+        if (!name || !idx) {
+            regMsgDiv.innerHTML = '<span style="color:#c0392b;">❌ Full Name & Index Number required!</span>';
+            return;
+        }
+        const exists = studentsDB.find(s => s.indexNumber.toLowerCase() === idx.toLowerCase());
+        if (exists) {
+            regMsgDiv.innerHTML = '<span style="color:#c0392b;">❌ Index already registered!</span>';
+            return;
+        }
+
+        const newStd = {
+            fullName: name,
+            indexNumber: idx,
+            email: email || "pending@lcns.ug",
+            classLevel: cls,
+            phone: phone || "Not provided",
+            regDate: new Date().toLocaleDateString()
+        };
+        studentsDB.push(newStd);
+        regMsgDiv.innerHTML = `<span style="color:#27ae60;">✅ ${name} registered! Index: ${idx}</span>`;
+        regForm.reset();
+    });
+
+    // Search Handler
+    const searchBtn = document.getElementById('searchBtn');
+    const searchInput = document.getElementById('searchInput');
+    const searchResultsDiv = document.getElementById('searchResults');
+
+    function handleSearch() {
+        const query = searchInput.value.trim().toLowerCase();
+        if (!query) {
+            searchResultsDiv.innerHTML = '<p style="color:gray;">🔍 Enter name or index number to search...</p>';
+            return;
+        }
+        const results = studentsDB.filter(s => s.fullName.toLowerCase().includes(query) || s.indexNumber.toLowerCase().includes(query));
+        if (results.length === 0) {
+            searchResultsDiv.innerHTML = '<div class="search-result-card">❌ No matching student found.</div>';
+            return;
+        }
+        let html = '';
+        results.forEach(s => {
+            html += `<div class="search-result-card">
+                        <i class="fas fa-user-graduate"></i> <strong>${s.fullName}</strong><br>
+                        <i class="fas fa-id-card"></i> Index: ${s.indexNumber}<br>
+                        <i class="fas fa-envelope"></i> Email: ${s.email}<br>
+                        <i class="fas fa-chalkboard"></i> Class: ${s.classLevel}<br>
+                        <i class="fas fa-phone"></i> Contact: ${s.phone}<br>
+                        <i class="fas fa-calendar"></i> Registered: ${s.regDate}
+                    </div>`;
+        });
+        searchResultsDiv.innerHTML = html;
+    }
+
+    searchBtn.addEventListener('click', handleSearch);
+    searchInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleSearch(); });
+
+    console.log("London College Nansana - Advanced Web Platform | Developer: Simpson 💭");
+</script>
+</body>
+</html>
